@@ -1,4 +1,4 @@
-//* call Multer
+//* import Multer
 const multer = require('multer');
 
 //* creation of a dictonnary that will be used to standardize the format name of the images
@@ -8,7 +8,7 @@ const MIME_TYPES = {
     'image/png': 'png'
 };
 
-//* creation of constante to define in multer the place to save the images - using the destination function
+//* creation of a constant to define in multer the place to save the images - using the destination function
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
         callback(null, 'images');
@@ -21,5 +21,5 @@ const storage = multer.diskStorage({
     }
 });
 
-//* export multer with storage defined through the storage constant, taking into account the image files only
+//* export multer middleware with storage defined through the storage constant, taking into account the image files only
 module.exports = multer({ storage: storage }).single('image');

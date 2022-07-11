@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
     try {
         //* get the token without bearer and check it with verify method
         const token = req.headers.authorization.split(' ')[1];
-        const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
+        const decodedToken = jwt.verify(token, `${process.env.TOKEN}`);
 
         //* get the user id from the decoded token and execute the authentification
         const userId = decodedToken.userId;

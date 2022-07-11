@@ -26,7 +26,7 @@ mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASS
 
 //* set up of control access headers to avoid CORS issues
 app.use((req, res, next) => {
-    //* allow all to have access to the api
+    //* allow all users to have access to the api
     res.setHeader('Access-Control-Allow-Origin', '*');
     //* allow to have specific headers to interact with the API
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');

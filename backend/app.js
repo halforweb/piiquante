@@ -1,6 +1,7 @@
-//* import express and path module to navigate folders
+//* import express, path module to navigate folders, helmet to secure headers
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 
 //* import the routes related to sauce and user 
 const sauceRoutes = require('./routes/sauce');
@@ -16,6 +17,7 @@ const app = express();
 
 //* set up the database MongoDB
 const mongoose = require('mongoose');
+const { addAbortSignal } = require('stream');
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_NAME}.mongodb.net/?retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
@@ -37,6 +39,7 @@ app.use((req, res, next) => {
 
 //* define the middleware functions to be applied on the application
 app.use(express.json()); //* parse incoming request with json
+app.use(helmet()); //* secure headers
 app.use('/images', express.static(path.join(__dirname, 'images'))); //* manage images request as static to allow the images display
 app.use('/api/sauces', sauceRoutes); //* middleware to be exectuted for sauces manipulation 
 app.use('/api/auth', userRoutes); //* middleware to be executed for authentification

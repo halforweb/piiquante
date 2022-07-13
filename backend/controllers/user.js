@@ -17,7 +17,7 @@ exports.signup = (req, res, next) => {
             });
             //* save the user in the database
             user.save()
-                .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+                .then(() => res.status(201).json({ message: 'User created !' }))
                 .catch(error => res.status(400).json({ error }));
         })
         .catch(error => res.status(500).json({ error }));
@@ -30,13 +30,13 @@ exports.login = (req, res, next) => {
         .then(user => {
             //* the user doesn't exist in the database    
             if (!user) {
-                return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
+                return res.status(401).json({ message: 'incorrect login/password' });
             }
             //* the user exist in the database and we execute a check on the password   
             bcrypt.compare(req.body.password, user.password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ message: 'Paire login/mot de passe incorrecte' });
+                        return res.status(401).json({ message: 'incorrect login/password' });
                     }
                     //* the user exist, the password is right; we encrypt a new token for the userID
                     res.status(200).json({
